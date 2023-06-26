@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:developer';
 
 import 'package:alleventstask/config/packages/toast/k_toast.dart';
@@ -12,6 +14,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventsViewModel with ChangeNotifier implements EventsBaseClass {
   final Ref _ref;
@@ -129,6 +132,18 @@ class EventsViewModel with ChangeNotifier implements EventsBaseClass {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       notifyListeners();
     });
+  }
+
+  Future<void> bookEvent({required String eventUrl}) async {
+    try {
+      if (await canLaunchUrl(Uri.parse(eventUrl))) {
+        await launchUrl(Uri.parse(eventUrl));
+      } else {
+        launch(eventUrl);
+      }
+    } catch (e) {
+      kToast(style: ToastStyle.error, message: e.toString());
+    }
   }
 
   Future<void> fetchEventFromCategory({required String eventUrl}) async {

@@ -200,6 +200,9 @@ class EventDetailScreen extends HookConsumerWidget {
                   KButton(
                     buttonName: "Book Now",
                     onTap: () {
+                      ref
+                          .read(eventsViewProvider)
+                          .bookEvent(eventUrl: event.event_url!);
                       // ref.read(eventsViewProvider).bookEvent();
                     },
                     useCirclularCorner: true,
