@@ -15,14 +15,18 @@ class BottomCategorySheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
+    return Container(
       padding: MediaQuery.of(context).viewInsets,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10).copyWith(right: 15, left: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -42,11 +46,13 @@ class BottomCategorySheet extends HookConsumerWidget {
                     ),
                   ),
                 ),
-                const Sbh(h: 12),
-                AboutDivider(color: KColors().greyColor),
+                const Sbh(h: 15),
+                AboutDivider(color: KColors().greyColor, horizontal: 0),
+                const Sbh(h: 10),
                 CategoryCard(
                   categories: ref.watch(eventsViewProvider).allCategories,
-                )
+                ),
+                const Sbh(h: 15),
                 // ListView.builder(
                 //   shrinkWrap: true,
                 //   physics: const ClampingScrollPhysics(),

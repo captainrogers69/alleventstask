@@ -1,6 +1,5 @@
 import 'package:alleventstask/utils/constants/k_colors.dart';
 import 'package:alleventstask/utils/constants/k_styles.dart';
-import 'package:alleventstask/utils/enums/k_fonts.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -11,7 +10,7 @@ class AppTheme {
     // const Color(0xffeeefee),
     // primaryColor: primaryColor,
     cardColor: Colors.white,
-    fontFamily: KFonts.EuclidBold.name,
+    fontFamily: "Roboto",
     appBarTheme: AppBarTheme(
       // backgroundColor: primaryColor,
       titleTextStyle: Kstyles.kAppBarTextStyle.copyWith(
@@ -38,7 +37,8 @@ class AppTheme {
     useMaterial3: true,
     primaryColor: KColors.primaryColor,
     cardColor: Colors.white,
-    fontFamily: KFonts.EuclidBold.name,
+    // fontFamily: KFonts.EuclidBold.name,
+    fontFamily: "Roboto",
     scaffoldBackgroundColor: KColors.scaffoldBackgroundColor,
     appBarTheme: const AppBarTheme(
       backgroundColor: KColors.appbarColor,

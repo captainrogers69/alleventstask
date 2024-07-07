@@ -17,7 +17,7 @@ class AuthLogo extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
             decoration: BoxDecoration(
               borderRadius: witRadiusStan,
-              gradient: KColors.gradientPrimary,
+              // gradient: KColors.gradientPrimary,
             ),
             child: Text(
               "All Events Task",

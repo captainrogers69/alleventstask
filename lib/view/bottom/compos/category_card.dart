@@ -25,6 +25,7 @@ class CategoryCard extends HookConsumerWidget {
         //   ),
         // ),
         Wrap(
+          runSpacing: 5,
           children: List.generate(
             // 3, // length of the categories/subcategories
             categories.length,

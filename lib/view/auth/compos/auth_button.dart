@@ -29,7 +29,7 @@ class AuthButton extends StatelessWidget {
         height: 55,
         decoration: BoxDecoration(
           borderRadius: witRadiusStan,
-          gradient: KColors.gradientPrimary,
+          // gradient: KColors.gradientPrimary,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

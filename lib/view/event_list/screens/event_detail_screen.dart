@@ -34,10 +34,13 @@ class EventDetailScreen extends HookConsumerWidget {
       ref
           .read(eventsViewProvider)
           .configSuggestedEvents(eventId: event.event_id!);
+      // dev.log(event.);
       return null;
     }, []);
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0,
         leading: IconButton(
           onPressed: () {
             Navigate.instance.pushBack();
@@ -63,7 +66,7 @@ class EventDetailScreen extends HookConsumerWidget {
             },
             icon: Image.asset(
               KAssets.share,
-              scale: 18,
+              scale: 22,
             ),
           ),
         ],
@@ -74,15 +77,15 @@ class EventDetailScreen extends HookConsumerWidget {
             CacheImage(
               image: event.banner_url!,
               width: Responsive.width(context),
+              height: Responsive.width(context) / 2,
               roundCorner: 1,
-              height: 180,
             ),
             Container(
-              margin: const EdgeInsets.only(bottom: 8),
+              margin: const EdgeInsets.only(bottom: 5),
               padding: const EdgeInsets.all(10).copyWith(left: 13),
               decoration: BoxDecoration(
                 color: KColors.whiteColor,
-                borderRadius: witRadiusStan,
+                // borderRadius: witRadiusStan,
                 boxShadow: witBoxShadow,
               ),
               child: Column(
@@ -104,18 +107,18 @@ class EventDetailScreen extends HookConsumerWidget {
                       const Spacer(),
                       InkWell(
                         onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: witRadiusSmall,
-                            color: KColors.whiteColor,
-                            boxShadow: witBoxShadow,
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          child: Image.asset(
-                            event.featured! == 1 ? KAssets.star2 : KAssets.star,
-                            scale: 6.5,
-                          ),
+                        // child: Container(
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: witRadiusSmall,
+                        //     color: KColors.whiteColor,
+                        //     boxShadow: witBoxShadow,
+                        //   ),
+                        //   padding: const EdgeInsets.all(8),
+                        child: Image.asset(
+                          event.featured! == 1 ? KAssets.star2 : KAssets.star,
+                          scale: 20,
                         ),
+                        // ),
                       ),
                     ],
                   ),
@@ -127,7 +130,7 @@ class EventDetailScreen extends HookConsumerWidget {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: KColors.whiteColor,
-                borderRadius: witRadiusStan,
+                // borderRadius: witRadiusStan,
                 boxShadow: witBoxShadow,
               ),
               child: Column(
@@ -144,7 +147,7 @@ class EventDetailScreen extends HookConsumerWidget {
                       color: KColors().midGreyColor,
                     ),
                   ),
-                  const Sbh(h: 14),
+                  const Sbh(h: 24),
                   const HeadingEvent(
                     heading: "Venue",
                     icon: Icons.location_on_outlined,
@@ -156,6 +159,7 @@ class EventDetailScreen extends HookConsumerWidget {
                       color: KColors().midGreyColor,
                     ),
                   ),
+                  const Sbh(h: 10),
                   TextButton(
                     onPressed: () {
                       ref.read(eventsViewProvider).configMapView();
@@ -164,9 +168,8 @@ class EventDetailScreen extends HookConsumerWidget {
                       children: [
                         Text(
                           "View Map",
-                          style: Kstyles.kSmallTextStyle.copyWith(
-                            fontSize: Responsive.getFontSize(15),
-                            color: KColors.blackColor,
+                          style: Kstyles.kAppBarTextStyle.copyWith(
+                            fontSize: Responsive.getFontSize(16),
                           ),
                         ),
                         Visibility(
@@ -197,6 +200,7 @@ class EventDetailScreen extends HookConsumerWidget {
                     ),
                   ),
                   // const MapView(longitude: 0, latitude: 0),
+                  const Sbh(h: 20),
                   KButton(
                     buttonName: "Book Now",
                     onTap: () {
@@ -210,24 +214,40 @@ class EventDetailScreen extends HookConsumerWidget {
                     fontSize: 19,
                     width: Responsive.width(context) * .921,
                   ),
-                  const Sbh(h: 17),
+                  const Sbh(h: 30),
                   const HeadingEvent(
                     heading: "Events's Photos",
                     icon: Icons.picture_in_picture,
                   ),
-                  const Sbh(h: 10),
+                  const Sbh(h: 15),
                   CacheImage(
                     image: event.banner_url!,
                     width: Responsive.width(context),
                     roundCorner: 1,
                     height: 180,
                   ),
-                  const Sbh(h: 12),
+                  // const Sbh(h: 15),
+
+                  // const Sbh(h: 20),
+                ],
+              ),
+            ),
+            const Sbh(h: 5),
+            Container(
+              padding: const EdgeInsets.all(10),
+              width: Responsive.width(context),
+              decoration: BoxDecoration(
+                color: KColors.whiteColor,
+                // borderRadius: witRadiusStan,
+                boxShadow: witBoxShadow,
+              ),
+              child: Column(
+                children: [
                   const HeadingEvent(
                     heading: "Host Reviews by Attendees",
                     icon: Icons.rate_review,
                   ),
-                  const Sbh(h: 10),
+                  const Sbh(h: 15),
                   ListTile(
                     onTap: () {},
                     leading: CircleAvatar(
@@ -273,17 +293,16 @@ class EventDetailScreen extends HookConsumerWidget {
                       },
                     ),
                   ),
-                  const Sbh(h: 20),
                 ],
               ),
             ),
-            const Sbh(h: 8),
+            const Sbh(h: 5),
             Container(
               padding: const EdgeInsets.all(10),
               width: Responsive.width(context),
               decoration: BoxDecoration(
                 color: KColors.whiteColor,
-                borderRadius: witRadiusStan,
+                // borderRadius: witRadiusStan,
                 boxShadow: witBoxShadow,
               ),
               child: Column(
@@ -304,9 +323,9 @@ class EventDetailScreen extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GFCarousel(
-                          height: Responsive.width(context) * .8,
+                          height: Responsive.width(context) * .85,
                           autoPlay: false,
-                          enlargeMainPage: true,
+                          enlargeMainPage: false,
                           onPageChanged: (index) {
                             // __.changeBannerState(index);
                           },
@@ -318,7 +337,8 @@ class EventDetailScreen extends HookConsumerWidget {
                                           .watch(eventsViewProvider)
                                           .selectedEvents[index]['event_id']
                                   ? EventGridCard(
-                                      width: Responsive.width(context) * .8,
+                                      goingCount: 6,
+                                      width: Responsive.width(context) * .85,
                                       onLikeTap: () {},
                                       event: EventItemModel.fromMap(
                                         ref

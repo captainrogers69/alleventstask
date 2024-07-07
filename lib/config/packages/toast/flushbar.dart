@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:async';
 import 'dart:ui';
+
 import 'package:alleventstask/config/packages/toast/flush_route.dart' as route;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -434,7 +435,7 @@ class _FlushbarState<K extends Object?> extends State<Flushbar<K>>
                 return _emptyWidget;
               }
               return ClipRRect(
-                borderRadius: widget.borderRadius,
+                borderRadius: widget.borderRadius!,
                 child: BackdropFilter(
                   filter: ImageFilter.blur(
                       sigmaX: widget.barBlur, sigmaY: widget.barBlur),

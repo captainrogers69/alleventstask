@@ -11,12 +11,16 @@ import 'package:alleventstask/utils/constants/k_styles.dart';
 import 'package:alleventstask/utils/wrappers/responsive_util.dart';
 import 'package:flutter/material.dart';
 
+import 'stacked_avatars.dart';
+
 class EventGridCard extends StatelessWidget {
   final void Function() onLikeTap;
   final EventItemModel event;
+  final int goingCount;
   final double? width;
   const EventGridCard({
     required this.onLikeTap,
+    required this.goingCount,
     required this.event,
     this.width,
     super.key,
@@ -69,23 +73,12 @@ class EventGridCard extends StatelessWidget {
                         const Sbh(h: 4),
                         Row(
                           children: [
-                            Row(
-                              children: List.generate(
-                                3,
-                                (index) {
-                                  return CircleAvatar(
-                                    radius: 7,
-                                    backgroundColor: KColors.primaryColor,
-                                    child: CacheImage(
-                                      image: dummyUser,
-                                    ),
-                                  );
-                                },
-                              ),
+                            const StackedNetworkAvatars(
+                              isGrid: false,
                             ),
                             const Sbw(w: 5),
                             Text(
-                              "20+ Going",
+                              "$goingCount+ Going",
                               maxLines: 1,
                               style: Kstyles.kMediumTextStyle.copyWith(
                                 fontSize: Responsive.getFontSize(13),
@@ -133,13 +126,13 @@ class EventGridCard extends StatelessWidget {
                 color: KColors.whiteColor.withOpacity(0.4),
                 boxShadow: witBoxShadow,
               ),
-              width: 40,
-              padding: const EdgeInsets.all(8),
+              width: 70,
+              padding: const EdgeInsets.all(8).copyWith(right: 4),
               child: Text(
-                event.start_time_display!.replaceRange(0, 4, ""),
-                maxLines: 2,
+                event.start_time_display!.replaceRange(0, 3, ""),
+                maxLines: 1,
                 style: Kstyles.kSmallTextStyle.copyWith(
-                  fontSize: Responsive.getFontSize(14),
+                  fontSize: Responsive.getFontSize(13),
                 ),
               ),
             ),
@@ -158,10 +151,11 @@ class EventGridCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 child: Image.asset(
                   event.featured! == 1 ? KAssets.star2 : KAssets.star,
-                  color: event.featured! == 1
-                      ? KColors.primaryColor
-                      : KColors.whiteColor,
-                  scale: 6.5,
+                  // color: event.featured! == 1
+                  //     ? KColors.primaryColor
+                  //     : KColors.whiteColor,
+                  color: KColors.blackColor,
+                  scale: 30,
                 ),
               ),
             ),

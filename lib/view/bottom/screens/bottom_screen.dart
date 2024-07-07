@@ -1,16 +1,9 @@
 import 'package:alleventstask/components/k_fetching.dart';
 import 'package:alleventstask/components/sizing_box.dart';
 import 'package:alleventstask/general_providers.dart';
-import 'package:alleventstask/utils/constants/container_util.dart';
 import 'package:alleventstask/utils/constants/k_colors.dart';
 import 'package:alleventstask/utils/constants/k_routes.dart';
-import 'package:alleventstask/utils/constants/k_styles.dart';
-import 'package:alleventstask/utils/extensions/string_extension.dart';
-import 'package:alleventstask/utils/wrappers/responsive_util.dart';
-import 'package:alleventstask/view/bottom/compos/bottom_category_sheet.dart';
 import 'package:alleventstask/view/bottom/compos/bottom_drawer.dart';
-import 'package:alleventstask/view/bottom/compos/bottom_menu.dart';
-import 'package:alleventstask/view/bottom/compos/bottom_tab_wrapper.dart';
 import 'package:alleventstask/view/bottom/compos/search_appbar.dart';
 import 'package:alleventstask/view/event_list/screens/event_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +15,7 @@ final GlobalKey<ScaffoldState> _bottomDrawerKey = GlobalKey<ScaffoldState>();
 class BottomScreen extends HookConsumerWidget {
   static const id = KRoutes.bottomScreen;
   const BottomScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController search = useTextEditingController();
@@ -32,6 +26,7 @@ class BottomScreen extends HookConsumerWidget {
     }, []);
     bool isTyping = search.text.isNotEmpty;
     return Scaffold(
+      backgroundColor: Colors.white,
       key: _bottomDrawerKey,
       drawer: BottomDrawer(
         bottomDrawerKey: _bottomDrawerKey,
@@ -46,64 +41,63 @@ class BottomScreen extends HookConsumerWidget {
       body: Visibility(
         visible: ref.watch(eventsViewProvider).fetchingCategories,
         replacement: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const BottomMenu(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: InkWell(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          shape: roundedShapeStan,
-                          isScrollControlled: true,
-                          builder: (context) {
-                            return const BottomCategorySheet();
-                          },
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Showing Results(${ref.watch(eventsViewProvider).selectedEvents.length}) for: ${ref.watch(eventsViewProvider).selectedCategories.category!.capitalizeFirst()}",
-                            style: Kstyles.kHeadingTextStyle.copyWith(
-                              fontSize: Responsive.getFontSize(18),
-                            ),
-                          ),
-                          Icon(
-                            Icons.edit,
-                            color: KColors().darkGreyColor,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Sbw(w: 11),
-                  IconButton(
-                    onPressed: () {
-                      ref.read(eventsViewProvider).configViewType();
-                    },
-                    icon: Icon(
-                      Icons.grid_view,
-                      color: KColors().darkGreyColor,
-                    ),
-                  )
-                ],
-              ),
-            ),
+            const Sbh(h: 10),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 15),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: [
+            //       Flexible(
+            //         child: InkWell(
+            //           onTap: () {
+            //             showModalBottomSheet(
+            //               context: context,
+            //               shape: roundedShapeStan,
+            //               isScrollControlled: true,
+            //               builder: (context) {
+            //                 return const BottomCategorySheet();
+            //               },
+            //             );
+            //           },
+            //           child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //             children: [
+            //               Text(
+            //                 // "Showing Results(${ref.watch(eventsViewProvider).selectedEvents.length}) for:
+            //                 "${ref.watch(eventsViewProvider).selectedCategories.category!.capitalizeFirst()} Events",
+            //                 style: Kstyles.kHeadingTextStyle.copyWith(
+            //                   fontSize: Responsive.getFontSize(18),
+            //                 ),
+            //               ),
+            //               Icon(
+            //                 Icons.edit,
+            //                 color: KColors().darkerGreyColor,
+            //               )
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //       const Sbw(w: 11),
+            //       IconButton(
+            //         onPressed: () {
+            //           ref.read(eventsViewProvider).configViewType();
+            //         },
+            //         icon: Icon(
+            //           Icons.grid_view,
+            //           color: KColors().darkerGreyColor,
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            // ),
             Expanded(
-              child: BottomTabWrapper(
-                child1: EventListScreen(
-                  isTyping: isTyping,
-                ),
-                child2: Container(),
-                child3: Container(),
+              child: EventListScreen(
+                isTyping: isTyping,
               ),
             ),
+
             // BottomTab(
             //   controller: tabController,
             //   tab1: ref.watch(bottomProvider).menuList[0].buttonName,

@@ -9,14 +9,17 @@ import 'package:alleventstask/utils/constants/k_colors.dart';
 import 'package:alleventstask/utils/constants/k_routes.dart';
 import 'package:alleventstask/utils/constants/k_styles.dart';
 import 'package:alleventstask/utils/wrappers/responsive_util.dart';
+import 'package:alleventstask/view/event_list/compos/stacked_avatars.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
 class EventListCard extends StatelessWidget {
   final void Function() onLikeTap;
   final EventItemModel event;
+  final int goingCount;
   const EventListCard({
     required this.onLikeTap,
+    required this.goingCount,
     required this.event,
     super.key,
   });
@@ -36,7 +39,7 @@ class EventListCard extends StatelessWidget {
           boxShadow: witBoxShadow,
         ),
         height: 145,
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         padding: const EdgeInsets.symmetric(horizontal: 10).copyWith(left: 0),
         child: Row(
           children: [
@@ -44,26 +47,28 @@ class EventListCard extends StatelessWidget {
               image: event.thumb_url_large ?? dummyUser,
               roundCorner: 11,
               height: 145,
-              width: 135,
+              width: 150,
             ),
-            const Sbw(w: 8),
+            const Sbw(w: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Sbh(h: 12),
+                  const Sbh(h: 5),
                   Text(
                     event.eventname ?? "Name Unavailable",
                     maxLines: 2,
                     style: Kstyles.kSmallTextStyle.copyWith(
-                      fontSize: Responsive.getFontSize(14),
+                      fontSize: Responsive.getFontSize(17),
                     ),
                   ),
+                  const Sbh(h: 1.5),
                   Text(
                     event.start_time_display ?? "Date Unavailable",
                     style: Kstyles.kMediumTextStyle.copyWith(
-                      fontSize: Responsive.getFontSize(13),
-                      color: KColors().greyColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: Responsive.getFontSize(13.5),
+                      color: KColors().midGreyColor,
                     ),
                   ),
                   Text(
@@ -72,8 +77,9 @@ class EventListCard extends StatelessWidget {
                         : "${event.location!}, ${event.venue!['city']}",
                     maxLines: 1,
                     style: Kstyles.kMediumTextStyle.copyWith(
-                      fontSize: Responsive.getFontSize(12),
-                      color: KColors().greyColor,
+                      fontWeight: FontWeight.w400,
+                      fontSize: Responsive.getFontSize(13.5),
+                      color: KColors().midGreyColor,
                     ),
                   ),
                   const Spacer(),
@@ -82,7 +88,18 @@ class EventListCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-                        children: [Container()],
+                        children: [
+                          const StackedNetworkAvatars(),
+                          const Sbw(w: 5),
+                          Text(
+                            "$goingCount+ Going",
+                            maxLines: 1,
+                            style: Kstyles.kMediumTextStyle.copyWith(
+                              fontSize: Responsive.getFontSize(13),
+                              color: KColors.primaryColor,
+                            ),
+                          ),
+                        ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -91,42 +108,27 @@ class EventListCard extends StatelessWidget {
                             onTap: () async {
                               await Share.share("${event.share_url}");
                             },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: witRadiusSmall,
-                                color: KColors.whiteColor,
-                                boxShadow: witBoxShadow,
-                              ),
-                              padding: const EdgeInsets.all(8),
-                              child: Image.asset(
-                                KAssets.share,
-                                scale: 30,
-                              ),
+                            child: Image.asset(
+                              KAssets.share,
+                              scale: 27,
+                            ),
+                          ),
+                          const Sbw(w: 15),
+                          InkWell(
+                            onTap: onLikeTap,
+                            child: Image.asset(
+                              event.featured! == 1
+                                  ? KAssets.star2
+                                  : KAssets.star,
+                              scale: 27,
                             ),
                           ),
                           const Sbw(w: 8),
-                          InkWell(
-                            onTap: onLikeTap,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: witRadiusSmall,
-                                color: KColors.whiteColor,
-                                boxShadow: witBoxShadow,
-                              ),
-                              padding: const EdgeInsets.all(8),
-                              child: Image.asset(
-                                event.featured! == 1
-                                    ? KAssets.star2
-                                    : KAssets.star,
-                                scale: 6.5,
-                              ),
-                            ),
-                          ),
                         ],
                       )
                     ],
                   ),
-                  const Sbh(h: 10),
+                  const Sbh(h: 12),
                 ],
               ),
             ),

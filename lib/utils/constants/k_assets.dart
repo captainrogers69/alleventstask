@@ -1,6 +1,7 @@
 class KAssets {
   static const String ast = 'assets';
 
+  static const String logo = '$ast/launcher_icon_2.png';
   static const String mapPreview = '$ast/mappreview.png';
   static const String menu = '$ast/menu.png';
   static const String search = '$ast/search.png';
